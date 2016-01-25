@@ -19,25 +19,21 @@
 ##########################################################################
 
 # Set the base image to Ubuntu
-FROM ubuntu
+FROM ubuntu:14.04
 
 # File Author / Maintainer
 MAINTAINER Ioannis Papapanagiotou - dynomite@netflix.com
 
 # Update the repository sources list and Install package Build Essential
 RUN apt-get update && apt-get install -y \
-	autoconf \
-	build-essential \
-	dh-autoreconf \
-	git \
-	libssl-dev \
-	libtool \
-	python-software-properties \
-	redis-server \
-	tcl8.5
-
-# Get Redis Running
-RUN service redis-server start
+  autoconf \
+  build-essential \
+  dh-autoreconf \
+  git \
+  libssl-dev \
+  libtool \
+  python-software-properties \
+  tcl8.5
 
 # Clone the Dynomite Git
 RUN git clone https://github.com/Netflix/dynomite.git
@@ -48,24 +44,16 @@ WORKDIR dynomite/
 
 # Autoreconf
 RUN autoreconf -fvi \
-	&& ./configure --enable-debug=log \
-	&& CFLAGS="-ggdb3 -O0" ./configure --enable-debug=full \
-	&& make \
-	&& make install
+  && ./configure --enable-debug=log \
+  && CFLAGS="-ggdb3 -O0" ./configure --enable-debug=full \
+  && make \
+  && make install
 
 ##################### INSTALLATION ENDS #####################
 
 # Expose the peer port
 RUN echo 'Exposing peer port 8101'
 EXPOSE 8101
-
-# Expose the underlying Redis port
-RUN echo 'Exposing Redis port 22122'
-EXPOSE 22122
-
-# Expose the stats/admin port
-RUN echo 'Exposing stats/admin port 22222'
-EXPOSE 22222
 
 # Default port to acccess Dynomite
 RUN echo 'Exposing client port for Dynomite 8102'
@@ -79,5 +67,3 @@ RUN echo 'Starting Dynomite'
 ENTRYPOINT ["src/dynomite", "--conf-file=conf/redis_single.yml", "-v11"]
 
 CMD ["run"]
-
-
