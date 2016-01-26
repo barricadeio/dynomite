@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y \
   dnsutils
 
 # Clone the Dynomite Git
-RUN git clone https://github.com/Netflix/dynomite.git
+RUN git clone https://github.com/barricadeio/dynomite.git
 RUN echo 'Git repo has been cloned in your Docker VM'
 
 # Move to working directory
