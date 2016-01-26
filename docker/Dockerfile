@@ -60,6 +60,10 @@ EXPOSE 8101
 RUN echo 'Exposing client port for Dynomite 8102'
 EXPOSE 8102
 
+# Expose the stats/admin port
+RUN echo 'Exposing stats/admin port 22222'
+EXPOSE 22222
+
 # Setting the dynomite as the dockerized entry-point application
 RUN echo 'Starting Dynomite'
 CMD ./bin/write_config.sh && ./bin/run_with_marathon.sh
