@@ -1,0 +1,15 @@
+machine:
+  pre:
+    - sudo curl -L -o /usr/bin/docker 'https://s3-external-1.amazonaws.com/circle-downloads/docker-1.9.1-circleci'
+    - sudo chmod 0755 /usr/bin/docker
+  services:
+    - docker
+
+# We have no tests right now
+test:
+  override:
+    - /bin/true
+
+dependencies:
+  post:
+    - bash bin/circle_docker.sh
