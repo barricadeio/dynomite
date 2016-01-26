@@ -27,9 +27,11 @@ MESOS_DYNOMITE_SERVER_PORT=$(dig +short SRV ${MESOS_DYNOMITE_SERVER_NAME} | awk 
 # Location where config should be written
 : ${MESOS_DYNOMITE_CONFIG_LOCATION:=conf/dynomite.yml}
 
-# These may be specified by the scheduler
-MESOS_DYNOMITE_PEER_LISTEN_PORT=${PORT0:-8101}
-MESOS_DYNOMITE_CLIENT_LISTEN_PORT=${PORT1:-8102}
+# Port for peer communication
+: ${MESOS_DYNOMITE_PEER_LISTEN_PORT:=8101}
+
+# Port for client communication
+: ${MESOS_DYNOMITE_CLIENT_LISTEN_PORT:=8102}
 
 # IP Address for peer communication
 : ${MESOS_DYNOMITE_PEER_LISTEN_IP:=127.0.0.1}
