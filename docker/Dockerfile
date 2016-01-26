@@ -33,7 +33,8 @@ RUN apt-get update && apt-get install -y \
   libssl-dev \
   libtool \
   python-software-properties \
-  tcl8.5
+  tcl8.5 \
+  dnsutils
 
 # Clone the Dynomite Git
 RUN git clone https://github.com/Netflix/dynomite.git
@@ -59,11 +60,6 @@ EXPOSE 8101
 RUN echo 'Exposing client port for Dynomite 8102'
 EXPOSE 8102
 
-# Default port to execute the entrypoint (Dynomite)
-CMD ["--port 8102"]
-
 # Setting the dynomite as the dockerized entry-point application
 RUN echo 'Starting Dynomite'
-ENTRYPOINT ["src/dynomite", "--conf-file=conf/redis_single.yml", "-v11"]
-
-CMD ["run"]
+CMD ./bin/write_config.sh && ./bin/run_with_marathon.sh
