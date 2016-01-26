@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -ex
-
 # Login to docker-registry
 docker login -u $DOCKER_USER -p $DOCKER_PASSWORD -e $DOCKER_EMAIL $DOCKER_REGISTRY
 
