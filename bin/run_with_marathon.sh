@@ -3,7 +3,7 @@
 set -o errexit -o nounset -o pipefail
 
 function run_dynomite() {
-  /dynomite/src/dynomite --conf-file=/dynomite/conf/dynomite.yml -v11
+  /dynomite/src/dynomite --conf-file=/dynomite/conf/dynomite.yml --verbosity=${MESOS_DYNOMITE_LOGLEVEL}
 }
 
 function run_consul_template() {
