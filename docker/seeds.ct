@@ -1,3 +1,5 @@
+consul = "consul.service.consul:8500"
+
 template {
   source = "/opt/consul-template/templates/seeds.ctmpl"
   destination = "/etc/dynomite/seeds.list"

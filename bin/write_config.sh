@@ -63,7 +63,7 @@ MESOS_DYNOMITE_SERVER_PORT=$(dig +short SRV ${MESOS_DYNOMITE_SERVER_NAME} | awk 
 
 # Write configuration
 
-printf "Writing configuration to file ${MESOS_DYNOMITE_CONFIG_LOCATION}\n"
+printf "Writing dynomite configuration to file ${MESOS_DYNOMITE_CONFIG_LOCATION}\n"
 cat > ${MESOS_DYNOMITE_CONFIG_LOCATION} <<- EndOfConfig
 # Dynomite Configuration File
 # ---------------------------

@@ -51,7 +51,7 @@ RUN mkdir -p /opt/consul-template/config
 RUN mkdir -p /opt/consul-template/templates
 
 # Add the init script for consul-template
-ADD consul-template.conf /etc/init/
+ADD consul-template /etc/init.d
 
 # Add the config file for consul-template
 ADD seeds.ct /opt/consul-template/config
