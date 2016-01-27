@@ -3,7 +3,7 @@
 set -o errexit -o nounset -o pipefail
 
 function run_dynomite() {
-  /dynomite/src/dynomite -d --conf-file=/dynomite/conf/dynomite.yml -v11
+  /dynomite/src/dynomite --conf-file=/dynomite/conf/dynomite.yml -v11
 }
 
 function run_consul_template() {
@@ -11,13 +11,13 @@ function run_consul_template() {
 }
 
 function run_florida() {
-  nodejs /dynomite/scripts/Florida/florida.js
+  nodejs /dynomite/scripts/Florida/florida.js 1> /var/log/florida.out 2> /var/log/florida.err &
 }
 
 function run() {
-  run_dynomite
   run_consul_template
   run_florida
+  run_dynomite
 }
 
 run
