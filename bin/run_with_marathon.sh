@@ -3,8 +3,7 @@
 set -o errexit -o nounset -o pipefail
 
 function run_dynomite() {
-  # verbosity flag sets logging level (default: 5, min: 0, max: 11)
-  /dynomite/src/dynomite --daemonize --conf-file=/dynomite/conf/dynomite.yml --verbosity=11
+  /dynomite/src/dynomite -d --conf-file=/dynomite/conf/dynomite.yml -v11
 }
 
 function run_consul_template() {
