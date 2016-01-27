@@ -1,0 +1,2 @@
+{{range service "dynomite-seed"}}
+{{.Address}}:{{.Port}}:{{.Tags | join ":"}}{{end}}

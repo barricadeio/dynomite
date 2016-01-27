@@ -6,12 +6,17 @@ function run_dynomite() {
   /dynomite/src/dynomite --conf-file=/dynomite/conf/dynomite.yml -v11
 }
 
+function run_consul_template() {
+  service consul-template start
+}
+
 function run_florida() {
-  true 
+  nodejs /dynomite/scripts/Florida/florida.js
 }
 
 function run() {
   run_dynomite
+  run_consul_template
   run_florida
 }
 

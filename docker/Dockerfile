@@ -30,6 +30,8 @@ RUN apt-get update && apt-get install -y \
   build-essential \
   dh-autoreconf \
   git \
+  npm \
+  unzip \
   libssl-dev \
   libtool \
   python-software-properties \
@@ -40,8 +42,32 @@ RUN apt-get update && apt-get install -y \
 RUN git clone https://github.com/barricadeio/dynomite.git
 RUN echo 'Git repo has been cloned in your Docker VM'
 
+# Create dynomite config directory
+RUN mkdir /etc/dynomite
+
+# Create consul-template directories
+RUN mkdir -p /opt/consul-template/bin
+RUN mkdir -p /opt/consul-template/config
+RUN mkdir -p /opt/consul-template/templates
+
+# Add the init script for consul-template
+ADD consul-template.conf /etc/init/
+
+# Add the config file for consul-template
+ADD seeds.ct /opt/consul-template/config
+
+# Add the template file to be served using consul-template
+ADD seeds.ctmpl /opt/consul-template/templates
+
 # Move to working directory
-WORKDIR dynomite/
+WORKDIR /opt/consul-template/bin
+
+# Download consul-template binary
+RUN curl https://releases.hashicorp.com/consul-template/0.12.2/consul-template_0.12.2_linux_amd64.zip -o consul-template.zip
+RUN unzip consul-template.zip && rm consul-template.zip
+
+# Move to working directory
+WORKDIR /dynomite
 
 # Autoreconf
 RUN autoreconf -fvi \

@@ -1,0 +1,4 @@
+template {
+  source = "/opt/consul-template/templates/seeds.ctmpl"
+  destination = "/etc/dynomite/seeds.list"
+}
