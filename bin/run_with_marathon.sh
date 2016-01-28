@@ -2,8 +2,14 @@
 
 set -o errexit -o nounset -o pipefail
 
+EXTRA_FLAGS=""
+if [ $MESOS_DYNOMITE_ENABLE_GOSSIP == "true" ]
+then
+  EXTRA_FLAGS="-g"
+fi
+
 function run_dynomite() {
-  /dynomite/src/dynomite --conf-file=/dynomite/conf/dynomite.yml -v${MESOS_DYNOMITE_LOGLEVEL}
+  /dynomite/src/dynomite --conf-file=/dynomite/conf/dynomite.yml -v${MESOS_DYNOMITE_LOGLEVEL} ${EXTRA_FLAGS}
 }
 
 function run_consul_template() {
