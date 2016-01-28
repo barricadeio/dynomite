@@ -51,13 +51,13 @@ RUN mkdir -p /opt/consul-template/config
 RUN mkdir -p /opt/consul-template/templates
 
 # Add the init script for consul-template
-ADD consul-template /etc/init.d
+ADD consul-template /etc/init.d/
 
 # Add the config file for consul-template
-ADD seeds.ct /opt/consul-template/config
+ADD seeds.ct /opt/consul-template/config/
 
 # Add the template file to be served using consul-template
-ADD seeds.ctmpl /opt/consul-template/templates
+ADD seeds.ctmpl /opt/consul-template/templates/
 
 # Move to working directory
 WORKDIR /opt/consul-template/bin
