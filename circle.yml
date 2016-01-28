@@ -1,29 +1,17 @@
 machine:
   pre:
   - |
-    sudo curl -L -o /usr/bin/circle-docker 'https://archive.barricade.io/binaries/circle-docker/circle-docker.sh'
-    sudo chmod 0755 /usr/bin/circle-docker
+    sudo curl -L -o /usr/bin/docker 'https://s3-external-1.amazonaws.com/circle-downloads/docker-1.9.1-circleci'
+    sudo chmod 0755 /usr/bin/docker
+    sudo sed -i 's/^DOCKER_OPTS.*$/DOCKER_OPTS="-s btrfs -e lxc --insecure-registry docker-registry.barricade-services.io"/' /etc/default/docker
   services:
     - docker
 
-dependencies:
-  cache_directories:
-    - "~/docker"
-  override:
-    - circle-docker cached_build docker-dynomite
-
+# We have no tests right now
 test:
   override:
-    - circle-docker env
+    - /bin/true
 
-deployment:
-  production:
-    branch: production
-    owner: barricadeio
-    commands:
-      - circle-docker push docker-dynomite
-  testing:
-    branch: master
-    owner: barricadeio
-    commands:
-      - circle-docker push docker-dynomite
+dependencies:
+  post:
+    - bash bin/circle_docker.sh
